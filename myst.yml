@@ -61,9 +61,10 @@ project:
   - keyword2
   - keyword3
   - keyword4
-  github: https://github.com/impact-scholars/isp-micropublication-template
+  github: https://github.com/pollomarzo/test-zenodo-drop
   bibliography:
   - bib.bib
   # downloads:
   # - file: supplementary-material.zip
   #   title: Supplementary Material
+  doi: 10.5072/zenodo.495461
