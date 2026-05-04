@@ -1,6 +1,9 @@
 # MyST build outputs
 _build/
 
+# Zenodo deposit bundle
+_bundle/
+
 # Python
 __pycache__/
 *.py[cod]

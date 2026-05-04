@@ -1,0 +1,66 @@
+name: Prepare Zenodo deposit
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: string
+        description: Release version (e.g. 0.1.0, no leading v)
+      sandbox:
+        required: false
+        type: boolean
+        default: false
+        description: Use sandbox.zenodo.org
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run prepare
+        id: prepare
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_SANDBOX_TOKEN: ${{ secrets.ZENODO_SANDBOX_TOKEN }}
+        run: |
+          set -euo pipefail
+          SANDBOX_FLAG=""
+          if [ "${{ inputs.sandbox }}" = "true" ]; then SANDBOX_FLAG="--sandbox"; fi
+          python scripts/zenodo-deposit.py prepare \
+            --repo "${{ github.repository }}" \
+            --site-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" \
+            --version "${{ inputs.version }}" \
+            $SANDBOX_FLAG \
+            > prepare-result.json
+          cat prepare-result.json
+          echo "draft_url=$(jq -r .draft_url prepare-result.json)" >> "$GITHUB_OUTPUT"
+          echo "concept_doi=$(jq -r .concept_doi prepare-result.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Open PR with myst.yml change
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: zenodo-prepare-${{ inputs.version }}
+          base: main
+          title: "chore: prepare zenodo deposit ${{ inputs.version }}"
+          commit-message: "chore: prepare zenodo deposit ${{ inputs.version }}"
+          add-paths: myst.yml
+          body: |
+            Prepares Zenodo deposit for `v${{ inputs.version }}`.
+
+            **Concept DOI:** `${{ steps.prepare.outputs.concept_doi }}`
+            **Draft:** ${{ steps.prepare.outputs.draft_url }}
+
+            After merging this PR, push tag `v${{ inputs.version }}` from `main` to trigger publish.
