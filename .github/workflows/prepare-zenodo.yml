@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -50,7 +50,7 @@ jobs:
           echo "concept_doi=$(jq -r .concept_doi prepare-result.json)" >> "$GITHUB_OUTPUT"
 
       - name: Open PR with myst.yml change
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: zenodo-prepare-${{ inputs.version }}
           base: main
