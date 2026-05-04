@@ -52,8 +52,6 @@ jobs:
         run: |
           if [ -f paper-environment.yml ]; then
             micromamba install --file paper-environment.yml --yes
-          elif [ -f environment.yml ]; then
-            micromamba install --file environment.yml --yes
           fi
 
       - name: Install zenodo-deposit deps
