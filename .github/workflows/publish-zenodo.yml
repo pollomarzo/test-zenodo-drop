@@ -4,6 +4,9 @@ on:
   push:
     tags: ["v*"]
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     uses: impact-scholars/isp-actions-config/.github/workflows/publish-zenodo.yml@feat/zenodo-publish

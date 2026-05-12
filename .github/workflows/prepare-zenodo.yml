@@ -13,6 +13,10 @@ on:
         default: true
         description: Use sandbox.zenodo.org
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   prepare:
     uses: impact-scholars/isp-actions-config/.github/workflows/prepare-zenodo.yml@feat/zenodo-publish

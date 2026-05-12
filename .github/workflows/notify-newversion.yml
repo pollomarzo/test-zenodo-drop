@@ -5,6 +5,10 @@ on:
     types: [opened, reopened, ready_for_review]
     branches: [main]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   remind:
     uses: impact-scholars/isp-actions-config/.github/workflows/notify-newversion.yml@feat/zenodo-publish
