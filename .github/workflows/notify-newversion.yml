@@ -12,4 +12,4 @@ permissions:
 
 jobs:
   remind:
-    uses: impact-scholars/isp-actions-config/.github/workflows/notify-newversion.yml@feat/zenodo-publish
+    uses: impact-scholars/isp-actions-config/.github/workflows/notify-newversion.yml@v0.2.0

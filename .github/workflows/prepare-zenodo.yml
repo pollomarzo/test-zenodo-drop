@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   prepare:
-    uses: impact-scholars/isp-actions-config/.github/workflows/prepare-zenodo.yml@feat/zenodo-publish
+    uses: impact-scholars/isp-actions-config/.github/workflows/prepare-zenodo.yml@v0.2.0
     with:
       version: ${{ inputs.version }}
       sandbox: ${{ inputs.sandbox }}

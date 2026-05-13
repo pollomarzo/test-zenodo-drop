@@ -9,4 +9,4 @@ on:
 
 jobs:
   validate:
-    uses: impact-scholars/isp-actions-config/.github/workflows/validate-paper.yml@main
+    uses: impact-scholars/isp-actions-config/.github/workflows/validate-paper.yml@v0.2.0
