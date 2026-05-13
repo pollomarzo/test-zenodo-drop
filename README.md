@@ -46,3 +46,5 @@ If you're familiar with the tools involved, these few steps are all you need. We
 
 We've outlined some technical details [here](https://impact-scholars.github.io/myst-deeper).
 
+
+<!-- smoke-test: notify-newversion @v0.2.0 -->
